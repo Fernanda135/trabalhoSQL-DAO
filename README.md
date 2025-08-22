@@ -1,1 +1,12 @@
-# trabalhoSQL-DAO
+# INSTRUÇÕES
+- Desenvolver um exemplo de DAO que se conecta a uma base de dados;
+- O DAO poderá ser desenvolvido em qualquer linguagem de programação orientada a objetos;
+- Na implementação do DAO, deverá haver comandos SQL que realizem o CRUD e o uso de algumas funções de agregação – uso de ao menos duas funções;
+- Deverá ser desenvolvido também o script PostgreSQL da(s) tabela(s) utilizada(s) pelo DAO;
+- O trabalho poderá ser feito individual ou dupla;
+- A implementação do DAO mais o script SQL da base de dados deverão ser entregues/compartilhados via e-mail do professor até a data 29/08/2025;
+- No corpo do e-mail, identificar o(s) aluno(s) do trabalho;
+- E-mail do professor: joao.nascimento@ifpi.edu.br
+- Exemplo de implementação de DAO e script SQL:
+  - DAO em Java: https://github.com/profjoaopaulo/ads2_java_sql/blob/main/src/main/java/com/example/PedidoDAO.java
+  - Script PostgreSQL: https://github.com/profjoaopaulo/ads2_java_sql/blob/main/src/main/resources/ads2_pedidos.sql
