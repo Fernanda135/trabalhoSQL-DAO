@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MidiaDAO {
 
@@ -16,6 +18,11 @@ public class MidiaDAO {
         this.connection = connection;
     }
 
+
+    // CRUD
+
+
+    // CREATE
     public Midia criarMidia(Midia midia) throws SQLException {
         String sql = "INSERT INTO midias (titulo, tipo, franquia, nota) VALUES (?, ?, ?, ?)";
 
@@ -46,28 +53,7 @@ public class MidiaDAO {
         return midia;
     }
 
-
-    public Midia buscarId(int id) throws SQLException {
-        String sql = "SELECT id, titulo, tipo, franquia, nota FROM midias WHERE id = ?";
-
-        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return new Midia(
-                        rs.getInt("id"),
-                        rs.getString("titulo"),
-                        rs.getString("tipo"),
-                        rs.getString("franquia"),
-                        rs.getInt("nota")
-                    );
-                }
-            }
-        }
-        return null;
-    }
-
+    // READ
     public List<Midia> listarMidias() throws SQLException {
         List<Midia> midias = new ArrayList<>();
         String sql = "SELECT * FROM midias";
@@ -88,6 +74,8 @@ public class MidiaDAO {
         return midias;
     }
 
+
+    // UPDATE
     public boolean atualizarMidia(Midia midia) throws SQLException {
         String sql = "UPDATE midias SET titulo = ?, tipo = ?, franquia = ?, nota = ? WHERE id = ?";
 
@@ -104,6 +92,8 @@ public class MidiaDAO {
         }
     }
 
+
+    // DELETE
     public boolean deletarMidia(int id) throws SQLException {
         String sql = "DELETE FROM midias WHERE id = ?";
 
@@ -114,6 +104,11 @@ public class MidiaDAO {
         }
     }
 
+
+    // FUNÇÕES DE AGREGAÇÃO
+
+
+    // COUNT()
     public long totalMidias() throws SQLException {
         String sql = "SELECT COUNT(*) AS total_midias FROM midias";
 
@@ -126,41 +121,7 @@ public class MidiaDAO {
         return 0;
     }
 
-    public Midia maiorNota() throws SQLException {
-        String sql = "SELECT * FROM midias WHERE nota = (SELECT MAX(nota) FROM midias)";
-        try (Statement stmt = this.connection.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
-            if (rs.next()) {
-                return new Midia(
-                    rs.getInt("id"),
-                    rs.getString("titulo"),
-                    rs.getString("tipo"),
-                    rs.getString("franquia"),
-                    rs.getInt("nota")
-                );
-            }
-        }
-        return null;
-    }
-
-    public Midia menorNota() throws SQLException {
-        String sql = "SELECT * FROM midias WHERE nota = (SELECT MIN(nota) FROM midias)";
-        try (Statement stmt = this.connection.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
-            if (rs.next()) {
-                return new Midia(
-                    rs.getInt("id"),
-                    rs.getString("titulo"),
-                    rs.getString("tipo"),
-                    rs.getString("franquia"),
-                    rs.getInt("nota")
-                );
-            }
-        }
-        return null;
-    }
-
-
+    // AGRUPAR POR TIPO
     public List<Midia> listarPorTipo(String tipo) throws SQLException {
         List<Midia> midias = new ArrayList<>();
         String sql = "SELECT * FROM midias WHERE tipo = ?";
@@ -183,6 +144,7 @@ public class MidiaDAO {
         return midias;
     }
 
+    // AGRUPAR POR FRANQUIA
     public List<Midia> listarPorFranquia(String franquia) throws SQLException {
         List<Midia> midias = new ArrayList<>();
         String sql = "SELECT * FROM midias WHERE franquia = ?";
@@ -203,6 +165,52 @@ public class MidiaDAO {
             }
         }
         return midias;
+    }
+
+    // QUANTIDADE POR TIPO
+    public Map<String, Integer> midiasPorTipo() throws SQLException {
+        Map<String, Integer> contagemPorTipo = new HashMap<>();
+        String sql = "SELECT tipo, COUNT(*) as total " +
+                    "FROM midias " +
+                    "GROUP BY tipo " +
+                    "ORDER BY total DESC";
+        
+        try (Statement stmt = this.connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)) {
+            
+            while (rs.next()) {
+                contagemPorTipo.put(
+                    rs.getString("tipo"),
+                    rs.getInt("total")
+                );
+            }
+        }
+        return contagemPorTipo;
+    }
+
+
+
+    
+    // BUSCA
+    public Midia buscarId(int id) throws SQLException {
+        String sql = "SELECT id, titulo, tipo, franquia, nota FROM midias WHERE id = ?";
+
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Midia(
+                        rs.getInt("id"),
+                        rs.getString("titulo"),
+                        rs.getString("tipo"),
+                        rs.getString("franquia"),
+                        rs.getInt("nota")
+                    );
+                }
+            }
+        }
+        return null;
     }
 
 }

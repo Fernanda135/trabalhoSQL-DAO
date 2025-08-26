@@ -3,6 +3,7 @@ package com.example;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -22,15 +23,14 @@ public class Main {
                 System.out.println("4 - Atualizar mídia");
                 System.out.println("5 - Deletar mídia");
                 System.out.println("6 - Total de mídias");
-                System.out.println("7 - Maior nota");
-                System.out.println("8 - Menor nota");
-                System.out.println("9 - Listar por tipo");
-                System.out.println("10 - Listar por franquia");
+                System.out.println("7 - Listar por tipo");
+                System.out.println("8 - Listar por franquia");
+                System.out.println("9 - Quantidade por tipo");
                 System.out.println("0 - Sair");
                 System.out.print("Escolha uma opção: ");
                 opcao = sc.nextInt();
                 System.out.println("\n");
-                sc.nextLine(); // limpar buffer
+                sc.nextLine();
 
                 switch (opcao) {
                     case 1: {
@@ -104,27 +104,23 @@ public class Main {
                         break;
                     }
                     case 7: {
-                        System.out.println("Maior nota: " + dao.maiorNota());
-                        break;
-                    }
-                    case 8: {
-                        System.out.println("Menor nota: " + dao.menorNota());
-                        break;
-                    }
-                    case 9: {
                         System.out.print("Digite o tipo: ");
                         String tipo = sc.nextLine();
                         List<Midia> midias = dao.listarPorTipo(tipo);
                         midias.forEach(System.out::println);
                         break;
                     }
-                    case 10: {
+                    case 8: {
                         System.out.print("Digite a franquia: ");
                         String franquia = sc.nextLine();
                         List<Midia> midias = dao.listarPorFranquia(franquia);
                         midias.forEach(System.out::println);
                         break;
                     }
+                    case 9:
+                        Map<String, Integer> midias = dao.midiasPorTipo();
+                        midias.forEach((tipo, quantidade) -> System.out.println(tipo + ": " + quantidade));
+                        break;
                     case 0:
                         System.out.println("Saindo...");
                         break;
