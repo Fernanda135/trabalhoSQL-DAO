@@ -67,7 +67,7 @@ public class Main {
                     case 4: {
                         System.out.print("ID da mídia a atualizar: ");
                         int id = sc.nextInt();
-                        sc.nextLine(); // limpar buffer
+                        sc.nextLine();
                         Midia existente = dao.buscarId(id);
                         if (existente != null) {
                             System.out.print("Novo título: ");
