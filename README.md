@@ -1,12 +1,26 @@
-# INSTRUÇÕES
-- Desenvolver um exemplo de DAO que se conecta a uma base de dados;
-- O DAO poderá ser desenvolvido em qualquer linguagem de programação orientada a objetos;
-- Na implementação do DAO, deverá haver comandos SQL que realizem o CRUD e o uso de algumas funções de agregação – uso de ao menos duas funções;
-- Deverá ser desenvolvido também o script PostgreSQL da(s) tabela(s) utilizada(s) pelo DAO;
-- O trabalho poderá ser feito individual ou dupla;
-- A implementação do DAO mais o script SQL da base de dados deverão ser entregues/compartilhados via e-mail do professor até a data 29/08/2025;
-- No corpo do e-mail, identificar o(s) aluno(s) do trabalho;
-- E-mail do professor: joao.nascimento@ifpi.edu.br
-- Exemplo de implementação de DAO e script SQL:
-  - DAO em Java: https://github.com/profjoaopaulo/ads2_java_sql/blob/main/src/main/java/com/example/PedidoDAO.java
-  - Script PostgreSQL: https://github.com/profjoaopaulo/ads2_java_sql/blob/main/src/main/resources/ads2_pedidos.sql
+# 📚 Projeto MidiasDAO
+
+Este projeto é um **sistema de gerenciamento de mídias** desenvolvido em **Java** com conexão ao banco de dados **PostgreSQL**.  
+
+Ele permite realizar operações de **CRUD** (Criar, Ler, Atualizar e Deletar) em uma tabela de mídias, além de algumas consultas personalizadas.
+
+---
+
+## ⚙️ Funcionalidades
+- **Cadastrar mídia** → insere uma nova mídia no banco.  
+- **Buscar mídia por ID** → localiza uma mídia específica.  
+- **Listar todas as mídias** → exibe todas as mídias cadastradas.  
+- **Atualizar mídia** → altera os dados de uma mídia existente.  
+- **Deletar mídia** → remove uma mídia pelo seu ID.  
+- **Total de mídias** → retorna a quantidade total cadastrada.  
+- **Listar por tipo** → exibe mídias filtradas por tipo (ex: filme, série, jogo).  
+- **Listar por franquia** → exibe mídias de uma franquia específica.  
+- **Quantidade por tipo** → mostra quantas mídias existem de cada tipo.  
+
+---
+
+## 🗄️ Estrutura do Projeto
+- `Main.java` → menu interativo no terminal.  
+- `Midia.java` → classe modelo que representa uma mídia.  
+- `MidiaDAO.java` → contém os métodos de acesso ao banco (DAO).  
+- `ConnectionFactory.java` → cria a conexão com o banco PostgreSQL.  
