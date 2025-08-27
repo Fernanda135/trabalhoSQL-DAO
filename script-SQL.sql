@@ -12,7 +12,7 @@ CREATE DATABASE midiasdao
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False;
-
+    
 CREATE TABLE IF NOT EXISTS public.midias
 (
     id integer NOT NULL DEFAULT nextval('midias_id_seq'::regclass),
